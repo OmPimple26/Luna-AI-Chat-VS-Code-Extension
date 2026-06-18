@@ -1,0 +1,121 @@
+@import "tailwindcss";
+
+@theme {
+  /* Main UI Colors */
+  --color-background: var(--vscode-editor-background);
+  --color-foreground: var(--vscode-editor-foreground);
+  
+  /* Primary Action Colors (Buttons) */
+  --color-primary: var(--vscode-button-background);
+  --color-primary-hover: var(--vscode-button-hoverBackground);
+  --color-primary-fg: var(--vscode-button-foreground);
+
+  /* Secondary/Input UI */
+  --color-input-bg: var(--vscode-input-background);
+  --color-input-fg: var(--vscode-input-foreground);
+  --color-input-border: var(--vscode-input-border);
+  
+  /* Layout & Borders */
+  --color-panel-border: var(--vscode-panel-border);
+  --color-side-bar-bg: var(--vscode-sideBar-background);
+  
+  /* Feedback Colors */
+  --color-error: var(--vscode-errorForeground);
+  --color-success: var(--vscode-testing-iconPassed);
+  --color-warning: var(--vscode-warningForeground);
+}
+
+@layer base {
+  body {
+    padding: 0 !important; /* VS Code adds default padding to webviews, we reset it here */
+    margin: 0;
+  }
+}
+
+@layer utilities {
+  .glass-panel {
+    background: color-mix(in srgb, var(--vscode-editor-background) 60%, transparent);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid color-mix(in srgb, var(--vscode-panel-border) 40%, transparent);
+  }
+
+  .glass-input {
+    background: color-mix(in srgb, var(--vscode-input-background) 50%, transparent);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid color-mix(in srgb, var(--vscode-input-border) 60%, transparent);
+  }
+
+  .animate-fade-in-up {
+    animation: fadeInUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+  
+  .animate-slide-in {
+    animation: slideIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  .animate-pulse-slow {
+    animation: pulseSlow 3s infinite ease-in-out;
+  }
+}
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  10% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideIn {
+  0% {
+    opacity: 0;
+    transform: translateX(-10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes pulseSlow {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: color-mix(in srgb, var(--vscode-scrollbarSlider-background) 50%, transparent);
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--vscode-scrollbarSlider-hoverBackground);
+}
+
+/* Clear default VS Code inline code highlights inside pre code blocks */
+pre code {
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  color: inherit !important;
+  font-size: inherit !important;
+}
